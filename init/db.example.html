@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Comment DB Example</title>
+    <script>
+        function log(msg) {
+            var div = document.createElement('div');
+            div.innerHTML = msg;
+            document.body.appendChild(div);
+        }
+    </script>
+</head>
+<body>
+    <script src="db.js"></script>
+    <script>
+        var db = new DBComment();
+        var id = +new Date;
+
+        // get login user
+        var user = db.getLoginUser();
+        log('<h3>login user info</h3>');
+        log('<p>'+JSON.stringify(user)+'</p>');
+
+        // comment list change event
+        db.on('listchange', function (event) {
+            log('<h3>comment list change for '+event.action+'</h3>');
+            log('<p>'+JSON.stringify(event.data)+'</p>');
+        });
+
+        // get comment total
+        db.getCommentTotal().then(function (total) {
+            log('<h3>get total comment</h3>');
+            log('<p>'+JSON.stringify(total)+'</p>');
+        });
+        // get comment list
+        db.getCommentList({page:2,limit:5}).then(function (list) {
+            log('<h3>get comment list</h3>');
+            log('<p>'+JSON.stringify(list)+'</p>');
+        });
+        // add comment item
+        db.addComment({id:id,content:'这是评论内容'}).then(function (data) {
+            log('<h3>add comment item</h3>');
+            log('<p>'+JSON.stringify(data)+'</p>');
+        });
+        // remove comment item
+        db.removeComment(id).then(function (data) {
+            log('<h3>remove comment item</h3>');
+            log('<p>'+JSON.stringify(data)+'</p>');
+        });
+    </script>
+</body>
+</html>
