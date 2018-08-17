@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>评论模块</title>
+    <link type="text/css" rel="stylesheet" href="comment.css">
+</head>
+
+<body>
+    <section class="g-main">
+        <header class="m-header f-clear">
+            <h2>评论</h2>
+            <span class="count">共
+                <span class="total_comment"></span>条评论</span>
+        </header>
+        <div class="m-reply f-clear">
+            <a class="w-avatar" href="#">
+                <img src="" alt="" />
+            </a>
+            <form class="reply" method="post" action="Javascript:handleSubmit(event)">
+                <div class="txt">
+                    <textarea name="content" required placeholder="评论" oninput="leftChar()"></textarea>
+                </div>
+                <div class="submit f-clear">
+                    <span class="count">
+                        <span>140</span>/140</span>
+                    <button type="submit">评论</button>
+                </div>
+            </form>
+        </div>
+        <ul class="m-comments">
+        </ul>
+        <ul class="m-pager" onclick="jump(event)">
+            <li class="btn prv j-disabled">
+                <a href="#/page/previous">&lt;上一页</a>
+            </li>
+            <li class="itm">
+                <a href="#"></a>
+            </li>
+            <li class="sep">
+                <span>...</span>
+            </li>
+            <li class="itm">
+                <a href="#"></a>
+            </li>
+            <li class="itm j-selected">
+                <a href=""></a>
+            </li>
+            <li class="itm">
+                <a href="#"></a>
+            </li>
+            <li class="sep">
+                <span>...</span>
+            </li>
+            <li class="itm">
+                <a href="#"></a>
+            </li>
+            <li class="btn nxt">
+                <a href="#/page/next">下一页&gt;</a>
+            </li>
+        </ul>
+    </section>
+
+    <script src="db.js"></script>
+    <script src="comment.js"></script>
+    <script>
+        var comment = new Comment();
+        var commentChar = 0;
+        comment.init();
+        function deleteComment(id, e) {
+            e.preventDefault();
+            comment.deleteComment(id);
+        };
+        function jump(e) {
+            e.preventDefault();
+            comment.jumpPage(e.target.href);
+        };
+        function handleSubmit(e) {
+            console.log("enter submit", e);
+        };
+        function getLength(str) {
+            var realLength = 0, len = str.length, charCode = -1;
+            for (var i = 0; i < len; i++) {
+                charCode = str.charCodeAt(i);
+                if (charCode >= 0 && charCode <= 128)
+                    realLength += 1;
+                else
+                    realLength += 2;
+            }
+            return realLength;
+        };
+        function leftChar() {
+            var text = document.querySelector("form.reply").content.value;
+            commentChar = getLength(text);
+            var leftChar = 140 - commentChar;
+            if(leftChar >= 0){
+                document.querySelector("form.reply .submit span.count span").textContent = 140 - commentChar;
+            } else {
+                
+            }
+        }
+    </script>
+</body>
+
+</html>

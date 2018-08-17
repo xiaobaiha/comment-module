@@ -34,7 +34,7 @@
             log('<p>'+JSON.stringify(total)+'</p>');
         });
         // get comment list
-        db.getCommentList({page:2,limit:5}).then(function (list) {
+        db.getCommentList({page:200000,limit:10}).then(function (list) {
             log('<h3>get comment list</h3>');
             log('<p>'+JSON.stringify(list)+'</p>');
         });
