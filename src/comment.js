@@ -167,9 +167,9 @@ function Comment() {
             commentList.querySelectorAll("li.sep")[1].className =
                 totalPage <= 5 || (currentPage >= totalPage - 2) ? "sep hidden" : "sep";
             // 共显示5个页码，处理中间三个页码如何选择
-            if (currentPage <= 4) {
+            if (currentPage <= 3) {
                 pageNumberList = [1, 2, 3, 4, totalPage];
-            } else if (currentPage >= totalPage - 3) {
+            } else if (currentPage >= totalPage - 2) {
                 pageNumberList = [
                     1,
                     totalPage - 3,
