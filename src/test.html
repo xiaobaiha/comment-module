@@ -7,24 +7,29 @@
     <title>Document</title>
     <link type="text/css" rel="stylesheet" href="./component/reply/reply.css" />
     <link type="text/css" rel="stylesheet" href="./component/pager/pager.css" />
+    <link type="text/css" rel="stylesheet" href="./component/list/list.css" />
+    <link type="text/css" rel="stylesheet" href="./style/reset.css" />
 </head>
 <body>
     <div id="root"></div>
     <script src="./component/reply/reply.js"></script>
     <script src="./component/pager/pager.js"></script>
+    <script src="./component/list/list.js"></script>
     <script src="./util/dbUtil.js"></script>
     <script src="./util/db.js"></script>
     <script src="./util/util.js"></script>
     <script>
         // var reply = new Reply();
         // reply.init(new DBUtil());
-        var pager = new Pager(10, function(presentPage){
-            console.log("refresh", presentPage);
-            document.querySelector("#root").innerHTML = pager.render();
-            pager.bind();
-        },5);
-        document.querySelector("#root").innerHTML = pager.render();
-        pager.bind();
+        // var pager = new Pager(10, function(presentPage){
+        //     console.log("refresh", presentPage);
+        //     document.querySelector("#root").innerHTML = pager.render();
+        //     pager.bind();
+        // },5);
+        // document.querySelector("#root").innerHTML = pager.render();
+        // pager.bind();
+        var list = new List(new DBUtil(), 10);
+        list.refresh(1).then(()=>document.querySelector("#root").innerHTML = list.render());
     </script>
 </body>
 </html>

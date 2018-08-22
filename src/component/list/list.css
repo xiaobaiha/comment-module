@@ -1,0 +1,32 @@
+
+/* comment list */
+
+.c-comments {
+    margin-top: 20px;
+  }
+  
+  .c-comment {
+    padding: 15px 0;
+    border-top: 1px dotted #ccc;
+  }
+  
+  .c-comment .reply {
+    float: right;
+    width: 110px;
+    text-align: right;
+  }
+  
+  .c-comment .reply,
+  .c-comment .reply a {
+    color: #999;
+  }
+  
+  .c-comment .comment {
+    margin: 0 110px 0 55px;
+    word-wrap: break-word;
+  }
+  
+  .c-comment .comment .user {
+    color: #0c73c2;
+  }
+  

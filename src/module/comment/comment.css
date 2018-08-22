@@ -1,21 +1,4 @@
-/* reset */
 
-* {
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 12px;
-}
-
-ul,
-li {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-}
 
 /* common function */
 
@@ -55,34 +38,3 @@ a {
 }
 
 
-
-/* comment list */
-
-.m-comments {
-  margin-top: 20px;
-}
-
-.m-comment {
-  padding: 15px 0;
-  border-top: 1px dotted #ccc;
-}
-
-.m-comment .reply {
-  float: right;
-  width: 110px;
-  text-align: right;
-}
-
-.m-comment .reply,
-.m-comment .reply a {
-  color: #999;
-}
-
-.m-comment .comment {
-  margin: 0 110px 0 55px;
-  word-wrap: break-word;
-}
-
-.m-comment .comment .user {
-  color: #0c73c2;
-}
