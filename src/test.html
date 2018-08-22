@@ -18,10 +18,13 @@
     <script>
         // var reply = new Reply();
         // reply.init(new DBUtil());
-        var pager = new Pager();
-        pager.init(10, 7);
+        var pager = new Pager(10, function(presentPage){
+            console.log("refresh", presentPage);
+            document.querySelector("#root").innerHTML = pager.render();
+            pager.bind();
+        },5);
         document.querySelector("#root").innerHTML = pager.render();
-        // reply.bind();
+        pager.bind();
     </script>
 </body>
 </html>
