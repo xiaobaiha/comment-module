@@ -4,15 +4,15 @@ function List(db, limit) {
     this.util = new Util();
 
     this.refresh = async currentPage => {
-        await db.getCommentList({ page: currentPage, limit: this.limit }).then(list => {
+        await db.getCommentList({ page: currentPage, limit: this.limit }).then(async list => {
             // 评论列表为空时，跳转上一页
             if (list.length === 0) {
                 // currentPage -= 1;
                 // this.refreshPager();
-                return;
+                // return;
             }
             // render list
-            this.liList = list.map(e => `
+            this.liList = await list.map(e => `
                 <li class="c-comment f-clear">
                     <a class="w-avatar" href="#">
                         <img src="./style/${e.user.avatarURL}" alt="${e.user.nickName}" />
@@ -28,11 +28,12 @@ function List(db, limit) {
                 `).join('');
             return new Promise(resolve => resolve(this.render()))
         });
+        console.log("after refresh list")
     };
     this.render = function() {
         return `
         <ul class="m-comments">
-        ${this.liList}
+            ${this.liList}
         </ul>`;
     }
 }

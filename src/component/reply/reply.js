@@ -1,15 +1,20 @@
-function Reply() {
+function Reply(db) {
+    this.db = db;
+    this.user = this.db.getLoginUser();
+    this.util = new Util();
+    this.left = 140;
+    
     var handleSubmit = event => {
         event.preventDefault();
         var text = leftChar();
         if (text) {
             this.db.addComment({ id: "" + Date.now(), content: text }).then(function (data) {
-                    console.log("add comment", data);
-                }
+                console.log("add comment", data);
+            }
             );
             document.querySelector("form.reply").content.value = ""; // 清空输入框
         }
-    };  
+    };
     var leftChar = () => {
         console.log("enter leftchar")
         var text = document.querySelector("form.reply").content.value;
@@ -24,14 +29,9 @@ function Reply() {
         countNode.querySelector("span").textContent = 140 - commentChar;
         return text;
     };
-    this.init = function(db) {  
-        this.db = db;
-        this.user = this.db.getLoginUser();
-        this.util = new Util();
-        this.left = 140;
-    };
+
     this.render = function () {
-        
+
         return `
         <div class="c-reply f-clear">
             <a class="w-avatar" href="#">
@@ -51,7 +51,7 @@ function Reply() {
             </form>
         </div>`;
     };
-    this.bind = function() {
+    this.bind = function () {
         var form = document.querySelector(".c-reply form.reply");
         form.addEventListener("submit", handleSubmit);
         form.content.addEventListener("input", leftChar);

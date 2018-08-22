@@ -15,9 +15,11 @@
     <script src="./component/reply/reply.js"></script>
     <script src="./component/pager/pager.js"></script>
     <script src="./component/list/list.js"></script>
+    <script src="./module/comment/comment.js"></script>
     <script src="./util/dbUtil.js"></script>
     <script src="./util/db.js"></script>
     <script src="./util/util.js"></script>
+    <div class="m-comment"></div>
     <script>
         // var reply = new Reply();
         // reply.init(new DBUtil());
@@ -25,11 +27,14 @@
         //     console.log("refresh", presentPage);
         //     document.querySelector("#root").innerHTML = pager.render();
         //     pager.bind();
-        // },5);
+        // }, 5);
         // document.querySelector("#root").innerHTML = pager.render();
         // pager.bind();
-        var list = new List(new DBUtil(), 10);
-        list.refresh(1).then(()=>document.querySelector("#root").innerHTML = list.render());
+        // var list = new List(new DBUtil(), 10);
+        // list.refresh(1).then(()=>document.querySelector("#root").innerHTML = list.render());
+        var comment = new Comment();
+        comment.init();
+        comment.refresh(1);
     </script>
 </body>
 </html>
