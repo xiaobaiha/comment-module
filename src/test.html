@@ -6,18 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link type="text/css" rel="stylesheet" href="./component/reply/reply.css" />
+    <link type="text/css" rel="stylesheet" href="./component/pager/pager.css" />
 </head>
 <body>
     <div id="root"></div>
     <script src="./component/reply/reply.js"></script>
+    <script src="./component/pager/pager.js"></script>
     <script src="./util/dbUtil.js"></script>
     <script src="./util/db.js"></script>
     <script src="./util/util.js"></script>
     <script>
-        var reply = new Reply();
-        reply.init(new DBUtil());
-        document.querySelector("#root").innerHTML = reply.render();
-        reply.bind();
+        // var reply = new Reply();
+        // reply.init(new DBUtil());
+        var pager = new Pager();
+        pager.init(10, 7);
+        document.querySelector("#root").innerHTML = pager.render();
+        // reply.bind();
     </script>
 </body>
 </html>
