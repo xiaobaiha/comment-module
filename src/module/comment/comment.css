@@ -54,64 +54,7 @@ a {
   color: #666;
 }
 
-/* reply */
 
-.m-reply {
-  margin-top: 20px;
-  clear: both;
-}
-
-.m-reply .txt {
-  padding-right: 14px;
-}
-
-.w-avatar {
-  float: left;
-  width: 50px;
-  height: 50px;
-}
-
-.m-reply .reply {
-  margin-left: 55px;
-}
-
-.m-reply .reply textarea {
-  width: 100%;
-  height: 50px;
-  display: block;
-  padding: 5px 6px 6px;
-  border: 1px solid #cdcdcd;
-  border-radius: 2px;
-  line-height: 19px;
-  resize: none;
-}
-
-.m-reply .submit {
-  margin-top: 10px;
-}
-
-.m-reply .submit .count {
-  float: left;
-  margin-right: 10px;
-  line-height: 25px;
-  color: #999;
-}
-
-.m-reply .submit .count .message {
-  color: #ff4d4f;
-}
-
-.m-reply .submit [type="submit"] {
-  float: right;
-  width: 46px;
-  height: 25px;
-  color: #fff;
-  text-align: center;
-  line-height: 25px;
-  background: #2e7ecb;
-  border: 1px solid #2377c8;
-  border-radius: 2px;
-}
 
 /* comment list */
 
