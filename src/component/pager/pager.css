@@ -1,16 +1,15 @@
-
 /* comment pager */
 
 .c-pager {
     margin: 20px 0;
     text-align: center;
-  }
-  
-  .c-pager > li {
+}
+
+.c-pager>li {
     display: inline-block;
-  }
-  
-  .c-pager a {
+}
+
+.c-pager a {
     min-width: 12px;
     display: block;
     color: #333;
@@ -18,25 +17,24 @@
     border: 1px solid #ddd;
     border-radius: 2px;
     text-decoration: none;
-  }
-  
-  .c-pager .btn a {
+}
+
+.c-pager .btn a {
     background: #f0f0f0;
-  }
-  
-  .c-pager .j-disabled a {
+}
+
+.c-pager .j-disabled a {
     color: #ccc;
     background: #f1f1f1;
     cursor: not-allowed;
-  }
-  
-  .c-pager .j-selected a {
+}
+
+.c-pager .j-selected a {
     color: #fff;
     background: #d41017;
     border-color: #a3171c;
-  }
-  
-  .c-pager .hidden {
+}
+
+.c-pager .hidden {
     display: none;
-  }
-  
+}

@@ -1,28 +1,20 @@
-
-
-/* common function */
-
 .g-main {
-  padding: 0 20px;
+    padding: 0 20px;
 }
 
-/* header*/
-
 .m-header {
-  height: 33px;
-  border-bottom: 2px solid #c20c0c;
+    height: 33px;
+    border-bottom: 2px solid #c20c0c;
 }
 
 .m-header h2 {
-  float: left;
-  font-size: 20px;
-  line-height: 28px;
+    float: left;
+    font-size: 20px;
+    line-height: 28px;
 }
 
 .m-header .count {
-  float: left;
-  margin: 9px 0 0 20px;
-  color: #666;
+    float: left;
+    margin: 9px 0 0 20px;
+    color: #666;
 }
-
-

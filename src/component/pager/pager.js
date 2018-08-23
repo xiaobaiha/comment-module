@@ -1,18 +1,23 @@
-// [{ value: 1, disabled: true }, { value: 1, disabled: true }, { disabled: true }, {}, {}, {}]
-
+/**
+ * 分页器组件
+ * @class Component:Pager
+ * 
+ */
 function Pager(total, refresh, showNumber) {
-    var presentPage = 1;
+    var presentPage = 1;                // 当前页
+    this.total = total;                 // 总页数
+    this.refresh = refresh;             // 更新回调函数
+    this.showNumber = showNumber || 5;  // 可见页码数目
+    
     /**
-     * 初始化分页器
-     * @public
-     * @param {Number} total 总共多少页
-     * @param {Object} refresh 分页器更新后的回调函数
-     * @param {Number} showNumber 显示多少页页码
-     */
-    this.total = total;
-    this.refresh = refresh;
-    this.showNumber = showNumber || 5;
-
+    * 计算分页器显示的数组
+    * @private
+    * @method Component:Pager#calc
+    * @param {Number} showNumber 可见页码数目
+    * @param {Number} presentPage 当前页
+    * @param {Number} total 总页数
+    * @returns {Array} 分页器显示的数组 数组格式：[{ value: 1, disabled: true }, { value: 2, disabled: true }, ... ]
+    */
     var calc = function (showNumber, presentPage, total) {
         // calc item value
         var pageArr = [];
@@ -34,22 +39,54 @@ function Pager(total, refresh, showNumber) {
         })
         return pageArr;
     };
+
+    /**
+    * 分页器跳转
+    * @private
+    * @method Component:Pager#jumpPage
+    * @param {Object} event 点击事件
+    * @returns {void}
+    */
     var jumpPage = (event) => {
         event.preventDefault();
         var page = event.target.parentNode.dataset.action - 0;
         presentPage = page;
+        // 回调函数，将当前页码传送到上层容器
         this.refresh(presentPage);
     };
+
+    /**
+    * 刷新分页器组件
+    * @public
+    * @method Component:Pager#refreshTotal
+    * @param {Number} total 总页数
+    * @returns {void}
+    */
     this.refreshTotal = total => {
         this.total = total;
+        // 最后一页评论全部删除
         if(presentPage > total && presentPage > 1){
             presentPage = presentPage - 1;
             this.refresh(presentPage);
         }
     };
+
+    /**
+    * 获取分页器当前页码
+    * @public
+    * @method Component:Pager#getPresentPage
+    * @returns {Number} 当前页
+    */
     this.getPresentPage = () => {
         return presentPage;
     };
+
+    /**
+    * 获取分页器渲染后的DOM字符串
+    * @public
+    * @method Component:Pager#render
+    * @returns {String} 分页器HTML字符串
+    */
     this.render = function () {
         var pageArr = calc(this.showNumber, presentPage, this.total);
         return `
@@ -64,9 +101,9 @@ function Pager(total, refresh, showNumber) {
                 <span>...</span>
             </li>
             ${pageArr.slice(1, this.showNumber - 1).map(item => `
-            <li class="itm ${item.disabled ? 'hidden' : ''} ${item.value === presentPage ? 'j-selected' : '" data-type="page'}" data-action="${item.value}">
-                <a href="#">${item.value}</a>
-            </li>`
+                <li class="itm ${item.disabled ? 'hidden' : ''} ${item.value === presentPage ? 'j-selected' : '" data-type="page'}" data-action="${item.value}">
+                    <a href="#">${item.value}</a>
+                </li>`
             ).join('')}
             <li class="sep ${pageArr[this.showNumber - 1].value - 1 === pageArr[this.showNumber - 2].value ? 'hidden' : ''}">
                 <span>...</span>
@@ -79,6 +116,13 @@ function Pager(total, refresh, showNumber) {
             </li>
         </ul>`;
     };
+    
+    /**
+    * 绑定分页器组件事件
+    * @public
+    * @method Component:Pager#bind
+    * @returns {void}
+    */
     this.bind = function () {
         document.querySelectorAll("[data-type='page']").forEach(item => item.addEventListener("click", jumpPage));
         document.querySelectorAll(".c-pager .j-selected,.j-disabled").forEach(item => item.addEventListener("click", e => e.preventDefault()));

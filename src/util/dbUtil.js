@@ -1,3 +1,8 @@
+/**
+ * db单例封装
+ * @class DBUtil
+ * 
+ */
 var DBUtil = (function() {
     var instance = null;
     function newDB(){

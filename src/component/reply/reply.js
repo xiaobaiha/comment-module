@@ -1,10 +1,22 @@
+/**
+ * 回复组件
+ * @class Component:Reply
+ * 
+ */
 function Reply(db, totalChar) {
-    this.db = db;
-    this.user = this.db.getLoginUser();
-    this.util = new Util();
-    this.left = totalChar;
-    this.totalChar = totalChar;
-    
+    this.db = db;                       // 数据库连接
+    this.user = this.db.getLoginUser(); // 当前登录用户
+    this.util = new Util();             // 工具类示例
+    this.left = totalChar;              // 剩余输入字数
+    this.totalChar = totalChar;         // 总共可输入字数
+
+    /**
+    * 处理回复提交
+    * @private
+    * @method Component:Reply#handleSubmit
+    * @param {Object} event 点击事件
+    * @returns {void}
+    */
     var handleSubmit = event => {
         event.preventDefault();
         var text = leftChar();
@@ -15,6 +27,13 @@ function Reply(db, totalChar) {
             document.querySelector("form.reply").content.value = ""; // 清空输入框
         }
     };
+
+    /**
+    * 回复器剩余输入字数
+    * @private
+    * @method Component:Reply#leftChar
+    * @returns {Boolean} 回复内容
+    */
     var leftChar = () => {
         var text = document.querySelector("form.reply").content.value;
         var commentChar = this.util.getLength(text);
@@ -29,6 +48,12 @@ function Reply(db, totalChar) {
         return text;
     };
 
+    /**
+    * 获取回复渲染后的DOM字符串
+    * @public
+    * @method Component:Reply#render
+    * @returns {void}
+    */
     this.render = function () {
         return `
         <div class="c-reply f-clear">
@@ -49,6 +74,13 @@ function Reply(db, totalChar) {
             </form>
         </div>`;
     };
+
+    /**
+    * 绑定回复组件事件
+    * @public
+    * @method Component:Reply#bind
+    * @returns {void}
+    */
     this.bind = function () {
         var form = document.querySelector(".c-reply form.reply");
         form.addEventListener("submit", handleSubmit);

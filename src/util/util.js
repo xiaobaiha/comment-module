@@ -1,4 +1,16 @@
+/**
+ * 工具类
+ * @class Util
+ * 
+ */
 function Util() {
+    /**
+    * 获取字符串长度(1中文=2英文)
+    * @public
+    * @method Util#getLength
+    * @param {String} str
+    * @returns {Number} 字符串长度
+    */
     this.getLength = function (str) {
         var realLength = 0, len = str.length, charCode = -1;
         for (var i = 0; i < len; i++) {
@@ -9,8 +21,8 @@ function Util() {
     };
     /**
     * 对Date格式化(yyyy-MM-dd HH:mm)
-    * @private
-    * @method module:Comment#formatDate
+    * @public
+    * @method Util#formatDate
     * @param {Date} date
     * @returns {String} yyyy-MM-dd HH:mm格式化后的字符串
     */
@@ -29,8 +41,16 @@ function Util() {
 
         return `${year}-${month}-${day} ${hour}:${minute}`;
     };
-    this.formatTime = function (publishDate, timeInteval) {
+    /**
+    * 对发布时间进行格式化
+    * @public
+    * @method Util#formatTime
+    * @param {Date} publishDate 发布时间
+    * @returns {String} 格式化后的字符串
+    */
+    this.formatTime = function (publishDate) {
         var timeText;
+        var timeInteval = Date.now() - publishDate.getTime();
         if (timeInteval < 60 * 1000) {
             timeText = Math.ceil(timeInteval / 1000) + "秒前";
         } else if (timeInteval < 60 * 60 * 1000) {
@@ -43,5 +63,5 @@ function Util() {
             timeText = this.formatDate(publishDate);
         }
         return timeText;
-    }
+    };
 }

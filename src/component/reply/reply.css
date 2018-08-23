@@ -3,23 +3,23 @@
 .c-reply {
     margin-top: 20px;
     clear: both;
-  }
-  
-  .c-reply .txt {
+}
+
+.c-reply .txt {
     padding-right: 14px;
-  }
-  
-  .w-avatar {
+}
+
+.w-avatar {
     float: left;
     width: 50px;
     height: 50px;
-  }
-  
-  .c-reply .reply {
+}
+
+.c-reply .reply {
     margin-left: 55px;
-  }
-  
-  .c-reply .reply textarea {
+}
+
+.c-reply .reply textarea {
     width: 100%;
     height: 50px;
     display: block;
@@ -28,24 +28,24 @@
     border-radius: 2px;
     line-height: 19px;
     resize: none;
-  }
-  
-  .c-reply .submit {
+}
+
+.c-reply .submit {
     margin-top: 10px;
-  }
-  
-  .c-reply .submit .count {
+}
+
+.c-reply .submit .count {
     float: left;
     margin-right: 10px;
     line-height: 25px;
     color: #999;
-  }
-  
-  .c-reply .submit .count .message {
+}
+
+.c-reply .submit .count .message {
     color: #ff4d4f;
-  }
-  
-  .c-reply .submit [type="submit"] {
+}
+
+.c-reply .submit [type="submit"] {
     float: right;
     width: 46px;
     height: 25px;
@@ -55,4 +55,4 @@
     background: #2e7ecb;
     border: 1px solid #2377c8;
     border-radius: 2px;
-  }
+}
