@@ -16,3 +16,16 @@
   a {
     text-decoration: none;
   }
+
+  
+.f-clear {
+  clear: both;
+}
+
+.f-clear:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}

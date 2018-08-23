@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="./component/reply/reply.css" />
     <link type="text/css" rel="stylesheet" href="./component/pager/pager.css" />
     <link type="text/css" rel="stylesheet" href="./component/list/list.css" />
+    <link type="text/css" rel="stylesheet" href="./module/comment/comment.css" />    
     <link type="text/css" rel="stylesheet" href="./style/reset.css" />
 </head>
 <body>
@@ -21,20 +22,8 @@
     <script src="./util/util.js"></script>
     <div class="m-comment"></div>
     <script>
-        // var reply = new Reply();
-        // reply.init(new DBUtil());
-        // var pager = new Pager(10, function(presentPage){
-        //     console.log("refresh", presentPage);
-        //     document.querySelector("#root").innerHTML = pager.render();
-        //     pager.bind();
-        // }, 5);
-        // document.querySelector("#root").innerHTML = pager.render();
-        // pager.bind();
-        // var list = new List(new DBUtil(), 10);
-        // list.refresh(1).then(()=>document.querySelector("#root").innerHTML = list.render());
         var comment = new Comment();
-        comment.init();
-        comment.refresh(1);
+        comment.init(); 
     </script>
 </body>
 </html>

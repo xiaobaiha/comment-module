@@ -2,18 +2,6 @@
 
 /* common function */
 
-.f-clear {
-  clear: both;
-}
-
-.f-clear:after {
-  content: "";
-  clear: both;
-  display: block;
-  height: 0;
-  visibility: hidden;
-}
-
 .g-main {
   padding: 0 20px;
 }

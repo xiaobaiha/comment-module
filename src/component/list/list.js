@@ -5,11 +5,8 @@ function List(db, limit) {
 
     this.refresh = async currentPage => {
         await db.getCommentList({ page: currentPage, limit: this.limit }).then(async list => {
-            // 评论列表为空时，跳转上一页
             if (list.length === 0) {
-                // currentPage -= 1;
-                // this.refreshPager();
-                // return;
+                return;
             }
             // render list
             this.liList = await list.map(e => `
@@ -19,7 +16,7 @@ function List(db, limit) {
                     </a>
                     <div class="reply">
                         <p><time>${this.util.formatTime(new Date(e.time), Date.now() - e.time)}</time></p>
-                        <p><a href="#" onclick="deleteComment('${e.id}', event)">删除</a></p>
+                        <p><a href="#" data-type="delete" data-id="${e.id}">删除</a></p>
                     </div>
                     <div class="comment">
                         <p><a class="user" href="#">${e.user.nickName}</a>：${e.content}</p>
@@ -28,12 +25,21 @@ function List(db, limit) {
                 `).join('');
             return new Promise(resolve => resolve(this.render()))
         });
-        console.log("after refresh list")
     };
     this.render = function() {
         return `
         <ul class="m-comments">
             ${this.liList}
         </ul>`;
+    };
+    var handleDelete = e => {
+        e.preventDefault();
+        console.log(e.target.dataset.id)
+        db.removeComment(e.target.dataset.id).then(function (data) {
+            console.log("delete:", data);
+        });
+    }
+    this.bind = function() {
+        document.querySelectorAll(".c-comment .reply a[data-type='delete']").forEach(e=>e.addEventListener("click", handleDelete));
     }
 }

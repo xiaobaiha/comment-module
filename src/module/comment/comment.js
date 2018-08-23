@@ -7,6 +7,7 @@ function Comment() {
     var db = new DBUtil();   // 数据库连接
     var limit = 10;
     var pagerShow = 5;
+    var totalChar = 140;
     var totalComment;
 
     /**
@@ -16,33 +17,32 @@ function Comment() {
      * @returns {void} 
      */
     this.init = async () => {
-        this.reply = new Reply(db);
-        // this.reply.bind();
+        this.reply = new Reply(db, totalChar);
         this.list = new List(db, limit);
-        await db.getCommentTotal().then( total => {
+        await db.getCommentTotal().then(total => {
             totalComment = total;
             this.pager = new Pager(Math.ceil(total/limit), this.refresh, pagerShow);
-            this.pager.bind();
-            console.log("after await")
         });
-        console.log("after pager init")
+        this.refresh();
+        this.listen();
     };
-    this.refresh = async page => {
-        await this.list.refresh(page);
-        document.querySelector("div.m-comment").innerHTML = this.render(); //使用方式
+    this.refresh = async () => {
+        await db.getCommentTotal().then(total => {
+            totalComment = total;
+            this.pager.refreshTotal(Math.ceil(total/limit));
+        });
+        await this.list.refresh(this.pager.getPresentPage());
+        document.querySelector("div.m-comment").innerHTML = this.render(); //使用方式 <div class="m-comment"></div>
+        this.reply.bind();
+        this.pager.bind();
+        this.list.bind();
     }
     this.listen = () => {
         db.on("listchange", event => {
-            this.refreshPager();
-        });
-    };
-    this.deleteComment = function (id) {
-        db.removeComment(id).then(function (data) {
-            console.log("delete:", data);
+            this.refresh(this.pager.getPresentPage());
         });
     };
     this.render = () => {
-        console.log("render")
         return `
             <section class="g-main">
                 <header class="m-header f-clear">

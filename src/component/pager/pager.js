@@ -39,13 +39,17 @@ function Pager(total, refresh, showNumber) {
         var page = event.target.parentNode.dataset.action - 0;
         presentPage = page;
         this.refresh(presentPage);
-    }
-    this.goPrevious = () => {
-        if(presentPage > 1){
+    };
+    this.refreshTotal = total => {
+        this.total = total;
+        if(presentPage > total && presentPage > 1){
             presentPage = presentPage - 1;
             this.refresh(presentPage);
         }
-    }
+    };
+    this.getPresentPage = () => {
+        return presentPage;
+    };
     this.render = function () {
         var pageArr = calc(this.showNumber, presentPage, this.total);
         return `
@@ -61,7 +65,7 @@ function Pager(total, refresh, showNumber) {
             </li>
             ${pageArr.slice(1, this.showNumber - 1).map(item => `
             <li class="itm ${item.disabled ? 'hidden' : ''} ${item.value === presentPage ? 'j-selected' : '" data-type="page'}" data-action="${item.value}">
-                <a href="">${item.value}</a>
+                <a href="#">${item.value}</a>
             </li>`
             ).join('')}
             <li class="sep ${pageArr[this.showNumber - 1].value - 1 === pageArr[this.showNumber - 2].value ? 'hidden' : ''}">
@@ -77,6 +81,6 @@ function Pager(total, refresh, showNumber) {
     };
     this.bind = function () {
         document.querySelectorAll("[data-type='page']").forEach(item => item.addEventListener("click", jumpPage));
-        document.querySelectorAll(".c-pager .j-selected").forEach(item => item.addEventListener("click", e => e.preventDefault()));
+        document.querySelectorAll(".c-pager .j-selected,.j-disabled").forEach(item => item.addEventListener("click", e => e.preventDefault()));
     };
 }

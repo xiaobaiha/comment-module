@@ -1,8 +1,9 @@
-function Reply(db) {
+function Reply(db, totalChar) {
     this.db = db;
     this.user = this.db.getLoginUser();
     this.util = new Util();
-    this.left = 140;
+    this.left = totalChar;
+    this.totalChar = totalChar;
     
     var handleSubmit = event => {
         event.preventDefault();
@@ -10,16 +11,14 @@ function Reply(db) {
         if (text) {
             this.db.addComment({ id: "" + Date.now(), content: text }).then(function (data) {
                 console.log("add comment", data);
-            }
-            );
+            });
             document.querySelector("form.reply").content.value = ""; // 清空输入框
         }
     };
     var leftChar = () => {
-        console.log("enter leftchar")
         var text = document.querySelector("form.reply").content.value;
         var commentChar = this.util.getLength(text);
-        var leftChar = 140 - commentChar;
+        var leftChar = totalChar - commentChar;
         var countNode = document.querySelector("form.reply .submit span.count");
 
         countNode.querySelector(".message").textContent = leftChar >= 0 ? "" : "已超出" + (commentChar - 140) + "字!";
@@ -31,7 +30,6 @@ function Reply(db) {
     };
 
     this.render = function () {
-
         return `
         <div class="c-reply f-clear">
             <a class="w-avatar" href="#">
