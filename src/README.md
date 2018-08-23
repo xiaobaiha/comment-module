@@ -5,5 +5,4 @@
 ## 评论模块
 
 - comment.js
-- comment.html
 - comment.css 

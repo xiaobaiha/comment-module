@@ -63,3 +63,12 @@ if (/#\/page\/next/.test(href)) {
     currentPage = /#\/page\/(\d+)/.exec(href)[1] - 0; // page转成number
 }
 ```
+
+## db操作封装示例
+
+## 分页器与列表之间的通信
+- 在分页器初始化时传入父组件回调函数  
+- 父组件在回调函数中更新列表  
+
+## 依赖引入
+- 在需要使用模块的HTML中静态引入组件js，css文件  
