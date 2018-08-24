@@ -17,8 +17,7 @@ function List(db, limit) {
     */
     var handleDelete = function (e) {
         e.preventDefault();
-        console.log(e.target.dataset.id)
-        db.removeComment(e.target.dataset.id).then(function (data) {
+        db.removeComment(e.target.attributes["dataid"].nodeValue).then(function (data) {
             console.log("delete:", data);
         });
     };
@@ -43,7 +42,7 @@ function List(db, limit) {
                     "</a>"+
                     "<div class=\"reply\">"+
                         "<p><time>"+this.util.formatTime(new Date(e.time))+"</time></p>"+
-                        "<p><a href=\"#\" data-type=\"delete\" data-id=\""+e.id+"\">删除</a></p>"+
+                        "<p><a href=\"#\" datatype=\"delete\" dataid=\""+e.id+"\">删除</a></p>"+
                     "</div>"+
                     "<div class=\"comment\">"+
                         "<p><a class=\"user\" href=\"#\">"+e.user.nickName+"</a>："+e.content+"</p>"+
@@ -72,6 +71,9 @@ function List(db, limit) {
     * @returns {void}
     */
     this.bind = function () {
-        document.querySelectorAll(".c-comment .reply a[data-type='delete']").forEach(function(e){return e.addEventListener("click", handleDelete)});
+        var iter = document.querySelectorAll(".c-comment .reply a[datatype='delete']");
+        for(var i = 0; i< iter.length;i++){
+            iter[i].addEventListener("click", handleDelete);
+        }
     };
 }

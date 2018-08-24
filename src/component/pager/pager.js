@@ -123,7 +123,13 @@ function Pager(total, refresh, showNumber) {
     * @returns {void}
     */
     this.bind = function () {
-        document.querySelectorAll("[data-type='page']").forEach(function (item){item.addEventListener("click", jumpPage)});
-        document.querySelectorAll(".c-pager .j-selected,.j-disabled").forEach(function (item){item.addEventListener("click", function(e) {e.preventDefault()})});
+        var iter1 = document.querySelectorAll("[data-type='page']");
+        var iter2 = document.querySelectorAll(".c-pager .j-selected,.j-disabled");
+        for(var i = 0; i< iter1.length;i++){
+            iter1[i].addEventListener("click", jumpPage);
+        }
+        for(var i = 0; i< iter2.length;i++){
+            iter2[i].addEventListener("click", function(e) {e.preventDefault()});
+        }
     };
 }
