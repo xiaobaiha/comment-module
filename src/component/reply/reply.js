@@ -84,5 +84,7 @@ function Reply(db, totalChar) {
         var form = document.querySelector(".c-reply form.reply");
         form.addEventListener("submit", handleSubmit);
         form.content.addEventListener("input", leftChar);
+        form.content.addEventListener("focus", leftChar);
+        form.content.addEventListener("blur", leftChar);
     };
 }
