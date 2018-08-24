@@ -27,15 +27,15 @@ function Comment() {
      * @method module:Comment#init
      * @returns {void} 
      */
-    this.init = async () => {
+    this.init = function() {
         this.reply = new Reply(db, totalChar);
         this.list = new List(db, limit);
-        await db.getCommentTotal().then(total => {
+        db.getCommentTotal().then(function(total) {
             totalComment = total;
             this.pager = new Pager(Math.ceil(total/limit), this.refresh, pagerShow);
-        });
-        this.refresh();
-        this.listen();
+            this.refresh();
+            this.listen();
+        }.bind(this));
     };
 
     /**
@@ -44,17 +44,19 @@ function Comment() {
      * @method module:Comment#refresh
      * @returns {void} 
      */
-    this.refresh = async () => {
-        await db.getCommentTotal().then(total => {
+    this.refresh = function() {
+        db.getCommentTotal().then(function(total) {
             totalComment = total;
             this.pager.refreshTotal(Math.ceil(total/limit));
-        });
-        await this.list.refresh(this.pager.getPresentPage());
-        document.querySelector("div.m-comment").innerHTML = this.render();
-        this.reply.bind();
-        this.pager.bind();
-        this.list.bind();
-    };
+            this.list.refresh(this.pager.getPresentPage(), function(){
+                document.querySelector("div.m-comment").innerHTML = this.render();
+                this.reply.bind();
+                this.pager.bind();
+                this.list.bind();
+            }.bind(this));
+        }.bind(this));
+        
+    }.bind(this);
 
     /**
      * Comment模块侦听数据变化
@@ -62,10 +64,10 @@ function Comment() {
      * @method module:Comment#listen
      * @returns {void} 
      */
-    this.listen = () => {
-        db.on("listchange", event => {
+    this.listen = function () {
+        db.on("listchange", function(event) {
             this.refresh(this.pager.getPresentPage());
-        });
+        }.bind(this));
     };
 
     /**
@@ -74,18 +76,16 @@ function Comment() {
      * @method module:Comment#render
      * @returns {void} 
      */
-    this.render = () => {
-        return `
-            <section class="g-main">
-                <header class="m-header f-clear">
-                    <h2>评论</h2>
-                    <span class="count">共
-                        <span class="total_comment">${totalComment}</span>条评论</span>
-                </header>
-                ${this.reply.render()}
-                ${this.list.render()}
-                ${this.pager.render()}
-            </section>
-            `;
+    this.render = function () {
+        return '<section class="g-main">'+
+                '<header class="m-header f-clear">'+
+                    '<h2>评论</h2>'+
+                    '<span class="count">共'+
+                        '<span class="total_comment">'+totalComment+'</span>条评论</span>'+
+                '</header>'+
+                this.reply.render()+
+                this.list.render()+
+                this.pager.render()+
+            '</section>';
     };
 }

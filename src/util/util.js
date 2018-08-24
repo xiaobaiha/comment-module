@@ -39,7 +39,7 @@ function Util() {
         if (hour.length < 2) hour = "0" + hour;
         if (minute.length < 2) minute = "0" + minute;
 
-        return `${year}-${month}-${day} ${hour}:${minute}`;
+        return '' + year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
     };
     /**
     * 对发布时间进行格式化

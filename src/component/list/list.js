@@ -15,7 +15,7 @@ function List(db, limit) {
     * @param {Object} e 点击事件
     * @returns {void}
     */
-    var handleDelete = e => {
+    var handleDelete = function (e) {
         e.preventDefault();
         console.log(e.target.dataset.id)
         db.removeComment(e.target.dataset.id).then(function (data) {
@@ -30,27 +30,27 @@ function List(db, limit) {
     * @param {Number} 当前页码
     * @returns {void}
     */
-    this.refresh = async currentPage => {
-        await db.getCommentList({ page: currentPage, limit: this.limit }).then(async list => {
+    this.refresh = function(currentPage, callback) {
+        db.getCommentList({ page: currentPage, limit: this.limit }).then(function( list ) {
             if (list.length === 0) {
-                return;
+                callback();
             }
             // render list
-            this.liList = await list.map(e => `
-                <li class="c-comment f-clear">
-                    <a class="w-avatar" href="#">
-                        <img src="./style/${e.user.avatarURL}" alt="${e.user.nickName}" />
-                    </a>
-                    <div class="reply">
-                        <p><time>${this.util.formatTime(new Date(e.time))}</time></p>
-                        <p><a href="#" data-type="delete" data-id="${e.id}">删除</a></p>
-                    </div>
-                    <div class="comment">
-                        <p><a class="user" href="#">${e.user.nickName}</a>：${e.content}</p>
-                    </div>
-                </li>
-                `).join('');
-        });
+            this.liList = list.map(function(e){
+                return "<li class=\"c-comment f-clear\">"+
+                    "<a class=\"w-avatar\" href=\"#\">"+
+                        "<img src=\"./style/"+e.user.avatarURL+"\" alt=\""+e.user.nickName+"\" />"+
+                    "</a>"+
+                    "<div class=\"reply\">"+
+                        "<p><time>"+this.util.formatTime(new Date(e.time))+"</time></p>"+
+                        "<p><a href=\"#\" data-type=\"delete\" data-id=\""+e.id+"\">删除</a></p>"+
+                    "</div>"+
+                    "<div class=\"comment\">"+
+                        "<p><a class=\"user\" href=\"#\">"+e.user.nickName+"</a>："+e.content+"</p>"+
+                    "</div>"+
+                "</li>"}.bind(this)).join('');
+            callback();
+        }.bind(this));
     };
     
     /**
@@ -60,10 +60,9 @@ function List(db, limit) {
     * @returns {String} 列表HTML字符串
     */
     this.render = function () {
-        return `
-        <ul class="m-comments">
-            ${this.liList}
-        </ul>`;
+        return '<ul class="m-comments">'+
+            this.liList+
+        '</ul>';
     };
 
     /**
@@ -73,6 +72,6 @@ function List(db, limit) {
     * @returns {void}
     */
     this.bind = function () {
-        document.querySelectorAll(".c-comment .reply a[data-type='delete']").forEach(e => e.addEventListener("click", handleDelete));
+        document.querySelectorAll(".c-comment .reply a[data-type='delete']").forEach(function(e){return e.addEventListener("click", handleDelete)});
     };
 }

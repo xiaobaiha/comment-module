@@ -17,7 +17,7 @@ function Reply(db, totalChar) {
     * @param {Object} event 点击事件
     * @returns {void}
     */
-    var handleSubmit = event => {
+    var handleSubmit = function (event) {
         event.preventDefault();
         var text = leftChar();
         if (text) {
@@ -26,7 +26,7 @@ function Reply(db, totalChar) {
             });
             document.querySelector("form.reply").content.value = ""; // 清空输入框
         }
-    };
+    }.bind(this);
 
     /**
     * 回复器剩余输入字数
@@ -34,7 +34,7 @@ function Reply(db, totalChar) {
     * @method Component:Reply#leftChar
     * @returns {Boolean} 回复内容
     */
-    var leftChar = () => {
+    var leftChar = function () {
         var text = document.querySelector("form.reply").content.value;
         var commentChar = this.util.getLength(text);
         var leftChar = totalChar - commentChar;
@@ -46,7 +46,7 @@ function Reply(db, totalChar) {
         }
         countNode.querySelector("span").textContent = 140 - commentChar;
         return text;
-    };
+    }.bind(this);
 
     /**
     * 获取回复渲染后的DOM字符串
@@ -55,24 +55,23 @@ function Reply(db, totalChar) {
     * @returns {void}
     */
     this.render = function () {
-        return `
-        <div class="c-reply f-clear">
-            <a class="w-avatar" href="#">
-                <img src="./style/${this.user.avatarURL}" alt="" />
-            </a>
-            <form class="reply" method="post">
-                <div class="txt">
-                    <textarea name="content" required placeholder="评论"></textarea>
-                </div>
-                <div class="submit f-clear">
-                    <span class="count">
-                        <span>${this.left}</span>/140
-                        <span class="message"></span>
-                    </span>
-                    <button type="submit">评论</button>
-                </div>
-            </form>
-        </div>`;
+        return "<div class=\"c-reply f-clear\">"+
+            "<a class=\"w-avatar\" href=\"#\">"+
+                "<img src=\"./style/" + this.user.avatarURL + "\" alt=\"\" />"+
+            "</a>"+
+            "<form class=\"reply\" method=\"post\">"+
+                "<div class=\"txt\">"+
+                    "<textarea name=\"content\" required placeholder=\"评论\"></textarea>"+
+                "</div>"+
+                "<div class=\"submit f-clear\">"+
+                    "<span class=\"count\">"+
+                        "<span>" + this.left + "</span>/140"+
+                        "<span class=\"message\"></span>"+
+                    "</span>"+
+                    "<button type=\"submit\">评论</button>"+
+                "</div>"+
+            "</form>"+
+        "</div>";
     };
 
     /**
