@@ -49,7 +49,7 @@ function Pager(total, refresh, showNumber) {
     */
     var jumpPage = function (event) {
         event.preventDefault();
-        var page = event.target.parentNode.dataset.action - 0;
+        var page = event.target.parentNode.attributes["dataaction"].nodeValue - 0;
         presentPage = page;
         // 回调函数，将当前页码传送到上层容器
         this.refresh(presentPage);
@@ -90,27 +90,27 @@ function Pager(total, refresh, showNumber) {
     this.render = function () {
         var pageArr = calc(this.showNumber, presentPage, this.total);
         return '<ul class="c-pager">'+
-            '<li class="btn prv '+(presentPage > 1 ? '" data-type="page' : 'j-disabled') + '" data-action="'+(presentPage - 1)+'">'+
+            '<li class="btn prv '+(presentPage > 1 ? '" datatype="page' : 'j-disabled') + '" dataaction="'+(presentPage - 1)+'">'+
                 '<a href="#">&lt;上一页</a>'+
             '</li>'+
-            '<li class="itm '+(1 === presentPage ? 'j-selected' : '" data-type="page')+ '" data-action="1">'+
+            '<li class="itm '+(1 === presentPage ? 'j-selected' : '" datatype="page')+ '" dataaction="1">'+
                 '<a href="#">1</a>'+
             '</li>'+
             '<li class="sep '+(pageArr[0].value + 1 >= pageArr[1].value ? 'hidden' : '')+'">'+
                 '<span>...</span>'+
             '</li>'+
             pageArr.slice(1, this.showNumber - 1).map(function(item){
-                return '<li class="itm ' + (item.disabled ? 'hidden' : '') +' ' + (item.value === presentPage ? 'j-selected' : '" data-type="page')+'" data-action="'+item.value+'">'+
+                return '<li class="itm ' + (item.disabled ? 'hidden' : '') +' ' + (item.value === presentPage ? 'j-selected' : '" datatype="page')+'" dataaction="'+item.value+'">'+
                     '<a href="#">'+item.value+'</a>'+
                 '</li>';
             }).join('')+
             '<li class="sep '+(pageArr[this.showNumber - 1].value - 1 === pageArr[this.showNumber - 2].value ? 'hidden' : '')+'">'+
                 '<span>...</span>'+
             '</li>'+
-            '<li class="itm '+(pageArr[this.showNumber - 1].disabled ? 'hidden' : '')+' ' +(this.total === presentPage ? 'j-selected' : '" data-type="page') + '" data-action="'+this.total+'">'+
+            '<li class="itm '+(pageArr[this.showNumber - 1].disabled ? 'hidden' : '')+' ' +(this.total === presentPage ? 'j-selected' : '" datatype="page') + '" dataaction="'+this.total+'">'+
                 '<a href="#">'+this.total+'</a>'+
             '</li>'+
-            '<li class="btn nxt '+(presentPage < this.total ? '" data-type="page' : 'j-disabled')+'" data-action="'+presentPage + 1+'">'+
+            '<li class="btn nxt '+(presentPage < this.total ? '" datatype="page' : 'j-disabled')+'" dataaction="'+presentPage + 1+'">'+
                 '<a href="#">下一页&gt;</a>'+
             '</li>'+
         '</ul>';
@@ -123,7 +123,7 @@ function Pager(total, refresh, showNumber) {
     * @returns {void}
     */
     this.bind = function () {
-        var iter1 = document.querySelectorAll("[data-type='page']");
+        var iter1 = document.querySelectorAll("[datatype='page']");
         var iter2 = document.querySelectorAll(".c-pager .j-selected,.j-disabled");
         for(var i = 0; i< iter1.length;i++){
             iter1[i].addEventListener("click", jumpPage);
